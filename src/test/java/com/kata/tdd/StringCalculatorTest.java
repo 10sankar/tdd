@@ -32,6 +32,13 @@ class StringCalculatorTest {
     }
 
     @Test
+    void addCommaSeparatedNumbersIgnoreLargeNumbers() throws NegativeNumberException {
+        String commaSeparatedNumbers = "1,1001";
+        int result = calculator.addBasic(commaSeparatedNumbers);
+        assertThat(result).isEqualTo(1);
+    }
+
+    @Test
     void addCommaSeparated_N_Numbers() throws NegativeNumberException {
         String commaSeparatedNumbers = "1,2,3";
         int result = calculator.addBasic(commaSeparatedNumbers);

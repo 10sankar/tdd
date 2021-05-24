@@ -10,11 +10,11 @@ public class StringCalculator {
 
     int calledCount = 0;
 
-    public int getCalledCount(){
+    public int getCalledCount() {
         return calledCount;
     }
 
-    // "//[delimiter]\n[numbers...]"
+    // "//delimiter\n[numbers...]"
     public int add(String numbers) throws NegativeNumberException {
         calledCount++;
         if (!StringUtils.hasText(numbers))
@@ -44,6 +44,8 @@ public class StringCalculator {
             if (i < 0) {
                 if (CollectionUtils.isEmpty(negatives)) negatives = new ArrayList<>();
                 negatives.add(i);
+            } else if (i > 1000) {
+                continue;
             } else {
                 sum += i;
             }
