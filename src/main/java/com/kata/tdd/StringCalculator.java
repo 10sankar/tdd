@@ -1,22 +1,26 @@
 package com.kata.tdd;
 
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringCalculator {
 
     // "//[delimiter]\n[numbers...]"
-    public int add(String numbers) throws Exception {
+    public int add(String numbers) throws NegativeNumberException {
         if (!StringUtils.hasText(numbers))
             return 0;
 
         String[] split = numbers.split("\n");
-        Character delimiter = split[0].charAt(split[0].length()-1);
+        Character delimiter = split[0].charAt(split[0].length() - 1);
         String[] nums = split[1].split(delimiter.toString());
 
         return sum(nums);
     }
 
-    public int addBasic(String numbers) throws Exception {
+    public int addBasic(String numbers) throws NegativeNumberException {
         if (!StringUtils.hasText(numbers))
             return 0;
 
@@ -24,14 +28,20 @@ public class StringCalculator {
         return sum(nums);
     }
 
-    int sum(String[] nums) throws Exception {
+    int sum(String[] nums) throws NegativeNumberException {
         int sum = 0;
+        List<Integer> negatives = null;
         for (String n : nums) {
             int i = Integer.parseInt(n);
-            if(i<0){
-                throw new Exception("negatives not allowed");
+            if (i < 0) {
+                if (CollectionUtils.isEmpty(negatives)) negatives = new ArrayList<>();
+                negatives.add(i);
+            } else {
+                sum += i;
             }
-            sum += i;
+        }
+        if (!CollectionUtils.isEmpty(negatives)) {
+            throw new NegativeNumberException("negatives not allowed" + negatives);
         }
         return sum;
     }

@@ -8,56 +8,65 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class StringCalculatorTest {
 
-    private StringCalculator calculator = new StringCalculator();
+    private final StringCalculator calculator = new StringCalculator();
 
     @Test
-    void addEmptyString() throws Exception {
+    void addEmptyString() throws NegativeNumberException {
         String empty = "";
         int result = calculator.addBasic(empty);
         assertThat(result).isZero();
     }
 
     @Test
-    void addOneNumber() throws Exception {
+    void addOneNumber() throws NegativeNumberException {
         String oneInput = "1";
         int result = calculator.addBasic(oneInput);
         assertThat(result).isOne();
     }
 
     @Test
-    void addCommaSeparatedNumbers() throws Exception {
+    void addCommaSeparatedNumbers() throws NegativeNumberException {
         String commaSeparatedNumbers = "1,2";
         int result = calculator.addBasic(commaSeparatedNumbers);
         assertThat(result).isEqualTo(3);
     }
 
     @Test
-    void addCommaSeparated_N_Numbers() throws Exception {
+    void addCommaSeparated_N_Numbers() throws NegativeNumberException {
         String commaSeparatedNumbers = "1,2,3";
         int result = calculator.addBasic(commaSeparatedNumbers);
         assertThat(result).isEqualTo(6);
     }
 
     @Test
-    void addCommaSeparatedOrLine_N_Numbers() throws Exception {
+    void addCommaSeparatedOrLine_N_Numbers() throws NegativeNumberException {
         String commaSeparatedNumbers = "1\n2,3";
         int result = calculator.addBasic(commaSeparatedNumbers);
         assertThat(result).isEqualTo(6);
     }
 
     @Test
-    void addCustomDelimiter() throws Exception {
+    void addCustomDelimiter() throws NegativeNumberException {
         String input = "//;\n1;2";
         int result = calculator.add(input);
         assertThat(result).isEqualTo(3);
     }
 
     @Test
-    void addNegativeNumbers() throws Exception {
+    void addNegativeNumbers() {
         String input = "//;\n1;-2";
-        assertThatExceptionOfType(Exception.class)
+        assertThatExceptionOfType(NegativeNumberException.class)
                 .isThrownBy(() -> {
                     calculator.add(input);
-                }).withMessage("negatives not allowed");
+                }).withMessageContaining("negatives not allowed");
+    }
+
+    @Test
+    void addNegativeNumbersInExceptionMessage() {
+        String input = "//;\n-1;-2";
+        assertThatExceptionOfType(NegativeNumberException.class)
+                .isThrownBy(() -> {
+                    calculator.add(input);
+                }).withMessage("negatives not allowed[-1, -2]");
     }
 }
