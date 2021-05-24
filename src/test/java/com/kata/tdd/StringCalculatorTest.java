@@ -67,6 +67,20 @@ class StringCalculatorTest {
     }
 
     @Test
+    void addMultipleLongCustomDelimiter() throws NegativeNumberException {
+        String input = "//[**][%%]\n1**2%%3";
+        int result = calculator.add(input);
+        assertThat(result).isEqualTo(6);
+    }
+
+    @Test
+    void addMultipleCustomDelimiter() throws NegativeNumberException {
+        String input = "//[*][%]\n1*2%3";
+        int result = calculator.add(input);
+        assertThat(result).isEqualTo(6);
+    }
+
+    @Test
     void addNegativeNumbers() {
         String input = "//;\n1;-2";
         assertThatExceptionOfType(NegativeNumberException.class)
