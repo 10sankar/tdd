@@ -5,7 +5,7 @@ import org.springframework.util.StringUtils;
 public class StringCalculator {
 
     // "//[delimiter]\n[numbers...]"
-    public int add(String numbers) {
+    public int add(String numbers) throws Exception {
         if (!StringUtils.hasText(numbers))
             return 0;
 
@@ -16,7 +16,7 @@ public class StringCalculator {
         return sum(nums);
     }
 
-    public int addBasic(String numbers) {
+    public int addBasic(String numbers) throws Exception {
         if (!StringUtils.hasText(numbers))
             return 0;
 
@@ -24,10 +24,14 @@ public class StringCalculator {
         return sum(nums);
     }
 
-    int sum(String[] nums){
+    int sum(String[] nums) throws Exception {
         int sum = 0;
         for (String n : nums) {
-            sum += Integer.valueOf(n);
+            int i = Integer.parseInt(n);
+            if(i<0){
+                throw new Exception("negatives not allowed");
+            }
+            sum += i;
         }
         return sum;
     }
