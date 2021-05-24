@@ -53,10 +53,17 @@ class StringCalculatorTest {
     }
 
     @Test
-    void addCustomDelimiter() throws NegativeNumberException {
+    void addSingleDelimiter() throws NegativeNumberException {
         String input = "//;\n1;2";
-        int result = calculator.add(input);
+        int result = calculator.addBasicDelimiter(input);
         assertThat(result).isEqualTo(3);
+    }
+
+    @Test
+    void addCustomDelimiter() throws NegativeNumberException {
+        String input = "//[***]\n1***2***3";
+        int result = calculator.add(input);
+        assertThat(result).isEqualTo(6);
     }
 
     @Test
@@ -64,7 +71,7 @@ class StringCalculatorTest {
         String input = "//;\n1;-2";
         assertThatExceptionOfType(NegativeNumberException.class)
                 .isThrownBy(() -> {
-                    calculator.add(input);
+                    calculator.addBasicDelimiter(input);
                 }).withMessageContaining("negatives not allowed");
     }
 
@@ -73,7 +80,7 @@ class StringCalculatorTest {
         String input = "//;\n-1;-2";
         assertThatExceptionOfType(NegativeNumberException.class)
                 .isThrownBy(() -> {
-                    calculator.add(input);
+                    calculator.addBasicDelimiter(input);
                 }).withMessage("negatives not allowed[-1, -2]");
     }
 
@@ -82,7 +89,7 @@ class StringCalculatorTest {
         int expected = 3;
         StringCalculator countCheck = new StringCalculator();
         for (int i=0;i<expected;i++)
-            countCheck.add("");
+            countCheck.addBasicDelimiter("");
 
         assertThat(countCheck.getCalledCount()).isEqualTo(expected);
     }
