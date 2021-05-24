@@ -4,10 +4,15 @@ import org.springframework.util.StringUtils;
 
 public class StringCalculator {
 
-    public int add(String numbers){
-        if(!StringUtils.hasText(numbers))
+    public int add(String numbers) {
+        if (!StringUtils.hasText(numbers))
             return 0;
 
-        return 0;
+        String[] nums = numbers.split(",");
+        int sum = 0;
+        for (String n : nums) {
+            sum += Integer.valueOf(n);
+        }
+        return sum;
     }
 }
