@@ -29,4 +29,11 @@ class StringCalculatorTest {
         int result = calculator.add(commaSeparatedNumbers);
         assertThat(result).isEqualTo(3);
     }
+
+    @Test
+    void addCommaSeparated_N_Numbers() {
+        String commaSeparatedNumbers = "1,2,3";
+        int result = calculator.add(commaSeparatedNumbers);
+        assertThat(result).isEqualTo(6);
+    }
 }
