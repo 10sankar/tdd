@@ -69,4 +69,14 @@ class StringCalculatorTest {
                     calculator.add(input);
                 }).withMessage("negatives not allowed[-1, -2]");
     }
+
+    @Test
+    void getCalledCount() throws NegativeNumberException {
+        int expected = 3;
+        StringCalculator countCheck = new StringCalculator();
+        for (int i=0;i<expected;i++)
+            countCheck.add("");
+
+        assertThat(countCheck.getCalledCount()).isEqualTo(expected);
+    }
 }

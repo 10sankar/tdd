@@ -8,8 +8,15 @@ import java.util.List;
 
 public class StringCalculator {
 
+    int calledCount = 0;
+
+    public int getCalledCount(){
+        return calledCount;
+    }
+
     // "//[delimiter]\n[numbers...]"
     public int add(String numbers) throws NegativeNumberException {
+        calledCount++;
         if (!StringUtils.hasText(numbers))
             return 0;
 
@@ -21,6 +28,7 @@ public class StringCalculator {
     }
 
     public int addBasic(String numbers) throws NegativeNumberException {
+        calledCount++;
         if (!StringUtils.hasText(numbers))
             return 0;
 
