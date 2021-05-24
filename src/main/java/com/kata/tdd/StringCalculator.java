@@ -8,7 +8,7 @@ public class StringCalculator {
         if (!StringUtils.hasText(numbers))
             return 0;
 
-        String[] nums = numbers.split(",");
+        String[] nums = numbers.split(",|\n");
         int sum = 0;
         for (String n : nums) {
             sum += Integer.valueOf(n);

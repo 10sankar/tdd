@@ -36,4 +36,11 @@ class StringCalculatorTest {
         int result = calculator.add(commaSeparatedNumbers);
         assertThat(result).isEqualTo(6);
     }
+
+    @Test
+    void addCommaSeparatedOrLine_N_Numbers() {
+        String commaSeparatedNumbers = "1\n2,3";
+        int result = calculator.add(commaSeparatedNumbers);
+        assertThat(result).isEqualTo(6);
+    }
 }
